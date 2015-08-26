@@ -1,13 +1,13 @@
 (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
 var mod;
 
-mod = angular.module('adminr-login', ['adminr-datasources', 'ngMaterial']);
+mod = angular.module('adminr-login', ['adminr-datasources']);
 
 mod.run(["$templateCache", function($templateCache) {
   return $templateCache.put('adminr-login', require('./index.html'));
 }]);
 
-mod.controller('AdminrLogin', ["$scope", "DataSources", "$mdDialog", function($scope, DataSources, $mdDialog) {
+mod.controller('AdminrLogin', ["$scope", "DataSources", function($scope, DataSources) {
   $scope.dataSource = DataSources.getDataSource();
   $scope.authorizing = false;
   $scope.authorizationError = null;
@@ -18,7 +18,6 @@ mod.controller('AdminrLogin', ["$scope", "DataSources", "$mdDialog", function($s
       return $scope.authorizing = false;
     })["catch"](function(error) {
       $scope.authorizing = false;
-      $mdDialog.show($mdDialog.alert().parent(angular.element(document.body)).clickOutsideToClose(true).title('Login failed!').content('Reason: ' + (error.data.error || 'unknown')).ariaLabel('Login error').ok('Ok!'));
       return $scope.authorizationError = error;
     });
   };
@@ -26,5 +25,5 @@ mod.controller('AdminrLogin', ["$scope", "DataSources", "$mdDialog", function($s
 
 
 },{"./index.html":2}],2:[function(require,module,exports){
-module.exports = '<div ng-controller="AdminrLogin">\n    <div ng-if="dataSource.isAuthorized()" adminr-container="\'adminr-login\'"></div>\n    <div ng-if="!dataSource.isAuthorized()" style="background: #eeeeee;position:absolute;width:100%;height: 100%">\n        <div style="max-width: 420px;margin:0 auto;" layout="column">\n            <h2 style="text-align: center">Sign in to continue</h2>\n            <md-card>\n                <form ng-submit="authorize(username,password,rememberMe)">\n                    <div layout-padding layout="column">\n                        <md-input-container flex>\n                            <label>Username</label>\n                            <input type="text" ng-model="username" ng-disabled="authorizing" required autofocus>\n                        </md-input-container>\n                        <md-input-container flex>\n                            <label>Password</label>\n                            <input type="password" ng-model="password" ng-disabled="authorizing" required>\n                        </md-input-container>\n                        <md-checkbox ng-model="rememberMe">remember me</md-checkbox>\n                        <div layout="row">\n                            <div flex></div>\n                            <input type="submit" value="Sign in" class="md-button md-primary" />\n                        </div>\n                    </div>\n                </form>\n            </md-card>\n        </div>\n    </div>\n</div>';
+module.exports = '<span ng-controller="AdminrLogin">\n    <span ng-if="dataSource.isAuthorized()" adminr-container="\'adminr-login\'"></span>\n    <div class="container" ng-if="!dataSource.isAuthorized()">\n        <div class="row">\n            <div class="col-sm-6 col-md-4 col-md-offset-4">\n                <h1 class="text-center login-title">\n                    Sign in to continue\n                    <!--<br /> <small>datasource: {{dataSource.name}}</small>-->\n                </h1>\n                <div class="account-wall">\n                    <!--<img class="profile-img" src="https://lh5.googleusercontent.com/-b0-k99FZlyE/AAAAAAAAAAI/AAAAAAAAAAA/eu7opA4byxI/photo.jpg?sz=120" alt="">-->\n                    <form class="form-signin" ng-submit="authorize(username,password,rememberMe)">\n                        <div class="alert alert-danger" ng-if="authorizationError">{{authorizationError.data.error}}</div>\n                        <div class="alert alert-danger" ng-if="!dataSource">no datasource defined</div>\n                        <input type="text" class="form-control" ng-model="username" ng-disabled="authorizing" placeholder="Username" required autofocus>\n                        <input type="password" class="form-control" ng-model="password" ng-disabled="authorizing" placeholder="Password" required>\n                        <div class="checkbox">\n                            <label>\n                                <input type="checkbox" ng-model="rememberMe" value="remember-me" ng-disabled="authorizing">\n                                Remember me\n                            </label>\n                        </div>\n                        <button class="btn btn-lg btn-primary btn-block" type="submit" ng-disabled="authorizing">Sign in</button>\n                        <!--<a href="#" class="pull-right need-help">Need help? </a><span class="clearfix"></span>-->\n                    </form>\n                </div>\n                <!--<a href="#" class="text-center new-account">Create an account </a>-->\n            </div>\n        </div>\n    </div>\n</span>';
 },{}]},{},[1]);

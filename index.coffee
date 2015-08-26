@@ -1,10 +1,10 @@
-mod = angular.module('adminr-login',['adminr-datasources','ngMaterial'])
+mod = angular.module('adminr-login',['adminr-datasources'])
 
 mod.run(($templateCache)->
   $templateCache.put('adminr-login',require('./index.html'))
 )
 
-mod.controller('AdminrLogin',($scope,DataSources,$mdDialog)->
+mod.controller('AdminrLogin',($scope,DataSources)->
   $scope.dataSource = DataSources.getDataSource()
 
   $scope.authorizing = no
@@ -17,15 +17,6 @@ mod.controller('AdminrLogin',($scope,DataSources,$mdDialog)->
       $scope.authorizing = no
     ).catch((error)->
       $scope.authorizing = no
-      $mdDialog.show(
-        $mdDialog.alert()
-        .parent(angular.element(document.body))
-        .clickOutsideToClose(true)
-        .title('Login failed!')
-        .content('Reason: ' + (error.data.error || 'unknown'))
-        .ariaLabel('Login error')
-        .ok('Ok!')
-      );
       $scope.authorizationError = error
     )
 )
