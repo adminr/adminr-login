@@ -1,31 +1,48 @@
 <span ng-controller="AdminrLogin">
     <span ng-if="dataSource.isAuthorized()" adminr-container="'adminr-login-content'"></span>
     <div class="container" ng-if="!dataSource.isAuthorized()">
-        <div class="row">
-            <div class="col-sm-6 col-md-4 col-md-offset-4">
-                <h1 class="text-center login-title">
-                    Sign in to continue
-                    <!--<br /> <small>datasource: {{dataSource.name}}</small>-->
-                </h1>
-                <div class="account-wall">
-                    <!--<img class="profile-img" src="https://lh5.googleusercontent.com/-b0-k99FZlyE/AAAAAAAAAAI/AAAAAAAAAAA/eu7opA4byxI/photo.jpg?sz=120" alt="">-->
-                    <form class="form-signin" ng-submit="authorize(username,password,rememberMe)">
-                        <div class="alert alert-danger" ng-if="authorizationError">{{authorizationError.data.error}}</div>
-                        <div class="alert alert-danger" ng-if="!dataSource">no datasource defined</div>
-                        <input type="text" class="form-control" ng-model="username" ng-disabled="authorizing" placeholder="Username" required autofocus>
-                        <input type="password" class="form-control" ng-model="password" ng-disabled="authorizing" placeholder="Password" required>
-                        <div class="checkbox">
-                            <label>
-                                <input type="checkbox" ng-model="rememberMe" value="remember-me" ng-disabled="authorizing">
-                                Remember me
-                            </label>
-                        </div>
-                        <button class="btn btn-lg btn-primary btn-block" type="submit" ng-disabled="authorizing">Sign in</button>
-                        <!--<a href="#" class="pull-right need-help">Need help? </a><span class="clearfix"></span>-->
-                    </form>
-                </div>
-                <!--<a href="#" class="text-center new-account">Create an account </a>-->
+        <form class="form-signin" ng-submit="authorize(username,password,rememberMe)">
+            <h2 class="form-signin-heading">Please sign in</h2>
+
+            <div class="alert alert-danger" ng-if="authorizationError">{{authorizationError.data.error}}</div>
+            <div class="alert alert-danger" ng-if="!dataSource">no datasource defined</div>
+
+            <label for="inputEmail" class="sr-only">Email address</label>
+            <input ng-model="username" type="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus ng-disabled="authorizing">
+            <label for="inputPassword" class="sr-only">Password</label>
+            <input ng-model="password" type="password" id="inputPassword" class="form-control" placeholder="Password" required ng-disabled="authorizing">
+            <div class="checkbox">
+                <label>
+                    <input type="checkbox" ng-model="rememberMe"> Remember me
+                </label>
             </div>
-        </div>
+            <button class="btn btn-lg btn-primary btn-block" type="submit" ng-disabled="authorizing">Sign in</button>
+        </form>
+        <!--<div class="row">-->
+            <!--<div class="col-sm-6 col-md-4 col-md-offset-4">-->
+                <!--<h1 class="text-center login-title">-->
+                    <!--Sign in to continue-->
+                    <!--&lt;!&ndash;<br /> <small>datasource: {{dataSource.name}}</small>&ndash;&gt;-->
+                <!--</h1>-->
+                <!--<div class="account-wall">-->
+                    <!--&lt;!&ndash;<img class="profile-img" src="https://lh5.googleusercontent.com/-b0-k99FZlyE/AAAAAAAAAAI/AAAAAAAAAAA/eu7opA4byxI/photo.jpg?sz=120" alt="">&ndash;&gt;-->
+                    <!--<form class="form-signin" ng-submit="authorize(username,password,rememberMe)">-->
+                        <!--<div class="alert alert-danger" ng-if="authorizationError">{{authorizationError.data.error}}</div>-->
+                        <!--<div class="alert alert-danger" ng-if="!dataSource">no datasource defined</div>-->
+                        <!--<input type="text" class="form-control" ng-model="username" ng-disabled="authorizing" placeholder="Username" required autofocus>-->
+                        <!--<input type="password" class="form-control" ng-model="password" ng-disabled="authorizing" placeholder="Password" required>-->
+                        <!--<div class="checkbox">-->
+                            <!--<label>-->
+                                <!--<input type="checkbox" ng-model="rememberMe" value="remember-me" ng-disabled="authorizing">-->
+                                <!--Remember me-->
+                            <!--</label>-->
+                        <!--</div>-->
+                        <!--<button class="btn btn-lg btn-primary btn-block" type="submit" ng-disabled="authorizing">Sign in</button>-->
+                        <!--&lt;!&ndash;<a href="#" class="pull-right need-help">Need help? </a><span class="clearfix"></span>&ndash;&gt;-->
+                    <!--</form>-->
+                <!--</div>-->
+                <!--&lt;!&ndash;<a href="#" class="text-center new-account">Create an account </a>&ndash;&gt;-->
+            <!--</div>-->
+        <!--</div>-->
     </div>
 </span>
