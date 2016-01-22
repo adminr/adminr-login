@@ -10,7 +10,7 @@
                     <form ng-submit="authorize(username,password,rememberMe)">
                         <fieldset>
                             <div class="form-group">
-                                <input ng-model="username" ng-disabled="authorizing" class="form-control" placeholder="E-mail" name="email" type="email" autofocus>
+                                <input ng-model="username" ng-disabled="authorizing" class="form-control" placeholder="{{usernameType == 'email' ? 'E-mail' : 'Username'}}" name="username" type="{{usernameType}}" autofocus>
                             </div>
                             <div class="form-group">
                                 <input ng-model="password" ng-disabled="authorizing" class="form-control" placeholder="Password" name="password" type="password" value="">
@@ -22,7 +22,7 @@
                             </div>
 
                             <div class="alert alert-danger" ng-if="authorizationError">{{authorizationError.data.error}}</div>
-                            <div class="alert alert-danger" ng-if="!dataSource">no datasource defined</div>
+                            <div class="alert alert-danger" ng-if="!dataSource">no datasource found or specified</div>
 
                             <button href="index.html" class="btn btn-lg btn-success btn-block">Login</button>
                         </fieldset>

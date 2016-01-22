@@ -8,6 +8,6 @@
     "browserify-ngannotate": "^1.0.1"
   },
   "scripts": {
-    "build": "mkdir dist;browserify -t coffeeify -t [ browserify-ngannotate --x .coffee ] -t partialify index.coffee -o dist/index.js"
+    "build": "[ -d dist ] || mkdir dist;browserify -t coffeeify -t [ browserify-ngannotate --x .coffee ] -t partialify index.coffee -o dist/index.js"
   }
 }
