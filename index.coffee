@@ -17,7 +17,7 @@ mod.provider('AdminrLogin',(AdminrContainerManagerProvider)->
     @TEXT = 'text'
     usernameType: @EMAIL
 
-    setAsRootViewController:()->
+    setAsRootContainerView:()->
       AdminrContainerManagerProvider.setViewForRootContainer('adminr-login')
 
     setLoggedView:(view)->

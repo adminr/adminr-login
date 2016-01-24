@@ -1,7 +1,7 @@
 var mod = angular.module('adminr-core-test',['adminr-login','adminr-datasources']);
 
 mod.config(function(AdminrLoginProvider,AdminrDataSourcesProvider){
-    AdminrLoginProvider.setAsRootViewController()
+    AdminrLoginProvider.setAsRootContainerView()
     AdminrLoginProvider.setLoggedView('logged-view.html')
     AdminrLoginProvider.usernameType = AdminrLoginProvider.TEXT
     var datasource = AdminrDataSourcesProvider.createDataSource('Test','https://adminr-test-api.herokuapp.com')

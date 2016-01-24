@@ -24,7 +24,7 @@ mod.provider('AdminrLogin', ["AdminrContainerManagerProvider", function(AdminrCo
 
     AdminrLogin.prototype.usernameType = AdminrLogin.EMAIL;
 
-    AdminrLogin.prototype.setAsRootViewController = function() {
+    AdminrLogin.prototype.setAsRootContainerView = function() {
       return AdminrContainerManagerProvider.setViewForRootContainer('adminr-login');
     };
 
