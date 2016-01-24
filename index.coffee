@@ -30,8 +30,8 @@ mod.provider('AdminrLogin',(ContainerManagerProvider)->
 )
 
 
-mod.controller('AdminrLoginCtrl',($scope,DataSources,AdminrLogin)->
-  $scope.dataSource = DataSources.getDataSource()
+mod.controller('AdminrLoginCtrl',($scope,AdminrDataSources,AdminrLogin)->
+  $scope.dataSource = AdminrDataSources.getDataSource()
 
   $scope.usernameType = AdminrLogin.usernameType
   $scope.authorizing = no

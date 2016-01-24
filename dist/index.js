@@ -42,8 +42,8 @@ mod.provider('AdminrLogin', ["ContainerManagerProvider", function(ContainerManag
   return new AdminrLogin();
 }]);
 
-mod.controller('AdminrLoginCtrl', ["$scope", "DataSources", "AdminrLogin", function($scope, DataSources, AdminrLogin) {
-  $scope.dataSource = DataSources.getDataSource();
+mod.controller('AdminrLoginCtrl', ["$scope", "AdminrDataSources", "AdminrLogin", function($scope, AdminrDataSources, AdminrLogin) {
+  $scope.dataSource = AdminrDataSources.getDataSource();
   $scope.usernameType = AdminrLogin.usernameType;
   $scope.authorizing = false;
   $scope.authorizationError = null;
