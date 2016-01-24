@@ -1,7 +1,7 @@
 mod = angular.module('adminr-login',['adminr-core','adminr-datasources'])
 
-mod.config((ContainerManagerProvider)->
-  ContainerManagerProvider.setViewForContainer('adminr-login-form','adminr-login-form')
+mod.config((AdminrContainerManagerProvider)->
+  AdminrContainerManagerProvider.setViewForContainer('adminr-login-form','adminr-login-form')
 )
 
 mod.run(($templateCache)->
@@ -11,17 +11,17 @@ mod.run(($templateCache)->
 )
 
 
-mod.provider('AdminrLogin',(ContainerManagerProvider)->
+mod.provider('AdminrLogin',(AdminrContainerManagerProvider)->
   class AdminrLogin
     @EMAIL = 'email'
     @TEXT = 'text'
     usernameType: @EMAIL
 
     setAsRootViewController:()->
-      ContainerManagerProvider.setViewForRootContainer('adminr-login')
+      AdminrContainerManagerProvider.setViewForRootContainer('adminr-login')
 
     setLoggedView:(view)->
-      ContainerManagerProvider.setViewForContainer('adminr-login-content',view)
+      AdminrContainerManagerProvider.setViewForContainer('adminr-login-content',view)
 
     $get:()->
       return @

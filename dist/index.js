@@ -3,8 +3,8 @@ var mod;
 
 mod = angular.module('adminr-login', ['adminr-core', 'adminr-datasources']);
 
-mod.config(["ContainerManagerProvider", function(ContainerManagerProvider) {
-  return ContainerManagerProvider.setViewForContainer('adminr-login-form', 'adminr-login-form');
+mod.config(["AdminrContainerManagerProvider", function(AdminrContainerManagerProvider) {
+  return AdminrContainerManagerProvider.setViewForContainer('adminr-login-form', 'adminr-login-form');
 }]);
 
 mod.run(["$templateCache", function($templateCache) {
@@ -13,7 +13,7 @@ mod.run(["$templateCache", function($templateCache) {
   return $templateCache.put('adminr-login-form', require('./views/form.html'));
 }]);
 
-mod.provider('AdminrLogin', ["ContainerManagerProvider", function(ContainerManagerProvider) {
+mod.provider('AdminrLogin', ["AdminrContainerManagerProvider", function(AdminrContainerManagerProvider) {
   var AdminrLogin;
   AdminrLogin = (function() {
     function AdminrLogin() {}
@@ -25,11 +25,11 @@ mod.provider('AdminrLogin', ["ContainerManagerProvider", function(ContainerManag
     AdminrLogin.prototype.usernameType = AdminrLogin.EMAIL;
 
     AdminrLogin.prototype.setAsRootViewController = function() {
-      return ContainerManagerProvider.setViewForRootContainer('adminr-login');
+      return AdminrContainerManagerProvider.setViewForRootContainer('adminr-login');
     };
 
     AdminrLogin.prototype.setLoggedView = function(view) {
-      return ContainerManagerProvider.setViewForContainer('adminr-login-content', view);
+      return AdminrContainerManagerProvider.setViewForContainer('adminr-login-content', view);
     };
 
     AdminrLogin.prototype.$get = function() {
