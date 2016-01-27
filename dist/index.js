@@ -7,64 +7,70 @@ mod.config(["AdminrContainerManagerProvider", function(AdminrContainerManagerPro
   return AdminrContainerManagerProvider.setViewForContainer('adminr-login-form', 'adminr-login-form');
 }]);
 
-mod.run(["$templateCache", function($templateCache) {
-  $templateCache.put('adminr-login', require('./views/index.html'));
-  $templateCache.put('adminr-login-form', require('./views/form.html'));
-  return $templateCache.put('adminr-login-form', require('./views/form.html'));
-}]);
+mod.run([
+  '$templateCache', function($templateCache) {
+    $templateCache.put('adminr-login', require('./views/index.html'));
+    $templateCache.put('adminr-login-form', require('./views/form.html'));
+    return $templateCache.put('adminr-login-form', require('./views/form.html'));
+  }
+]);
 
-mod.provider('AdminrLogin', ["AdminrContainerManagerProvider", function(AdminrContainerManagerProvider) {
-  var AdminrLogin;
-  AdminrLogin = (function() {
-    function AdminrLogin() {}
+mod.provider('AdminrLogin', [
+  'AdminrContainerManagerProvider', function(AdminrContainerManagerProvider) {
+    var AdminrLogin;
+    AdminrLogin = (function() {
+      function AdminrLogin() {}
 
-    AdminrLogin.EMAIL = 'email';
+      AdminrLogin.USERNAME_TYPE_EMAIL = 'email';
 
-    AdminrLogin.TEXT = 'text';
+      AdminrLogin.USERNAME_TYPE_TEXT = 'text';
 
-    AdminrLogin.prototype.usernameType = AdminrLogin.EMAIL;
+      AdminrLogin.prototype.usernameType = AdminrLogin.USERNAME_TYPE_EMAIL;
 
-    AdminrLogin.prototype.setAsRootContainerView = function() {
-      return AdminrContainerManagerProvider.setViewForRootContainer('adminr-login');
-    };
+      AdminrLogin.prototype.setAsRootContainerView = function() {
+        return AdminrContainerManagerProvider.setViewForRootContainer('adminr-login');
+      };
 
-    AdminrLogin.prototype.setLoggedView = function(view) {
-      return AdminrContainerManagerProvider.setViewForContainer('adminr-login-content', view);
-    };
+      AdminrLogin.prototype.setLoggedView = function(view) {
+        return AdminrContainerManagerProvider.setViewForContainer('adminr-login-content', view);
+      };
 
-    AdminrLogin.prototype.$get = function() {
-      return this;
-    };
+      AdminrLogin.prototype.$get = function() {
+        return this;
+      };
 
-    return AdminrLogin;
+      return AdminrLogin;
 
-  })();
-  return new AdminrLogin();
-}]);
+    })();
+    return new AdminrLogin();
+  }
+]);
 
-mod.controller('AdminrLoginCtrl', ["$scope", "AdminrDataSources", "AdminrLogin", function($scope, AdminrDataSources, AdminrLogin) {
-  $scope.dataSource = AdminrDataSources.getDataSource();
-  $scope.usernameType = AdminrLogin.usernameType;
-  $scope.authorizing = false;
-  $scope.authorizationError = null;
-  $scope.authorize = function(username, password, rememberMe) {
-    $scope.authorizing = true;
+mod.controller('AdminrLoginCtrl', [
+  '$scope', 'AdminrDataSources', 'AdminrLogin', function($scope, AdminrDataSources, AdminrLogin) {
+    $scope.dataSource = AdminrDataSources.getDataSource();
+    $scope.usernameType = AdminrLogin.usernameType;
+    $scope.authorizing = false;
     $scope.authorizationError = null;
-    return $scope.dataSource.authorize(username, password, !rememberMe).then(function() {
-      return $scope.authorizing = false;
-    })["catch"](function(error) {
-      $scope.authorizing = false;
-      return $scope.authorizationError = error;
-    });
-  };
-  return $scope.getContainerKey = function() {
-    var ref;
-    if ((ref = $scope.dataSource) != null ? ref.isAuthorized() : void 0) {
-      return 'adminr-login-content';
-    }
-    return 'adminr-login-form';
-  };
-}]);
+    $scope.authorize = function(username, password, rememberMe) {
+      $scope.authorizing = true;
+      $scope.authorizationError = null;
+      return $scope.dataSource.authorize(username, password, !rememberMe).then(function() {
+        return $scope.authorizing = false;
+      })["catch"](function(error) {
+        $scope.authorizing = false;
+        return $scope.authorizationError = error;
+      });
+    };
+    return $scope.getContainerKey = function() {
+      var ref;
+      if ((ref = $scope.dataSource) != null ? ref.isAuthorized() : void 0) {
+        return 'adminr-login-content';
+      }
+      return 'adminr-login-form';
+    };
+  }
+]);
 
 
 },{"./views/form.html":2,"./views/index.html":3}],2:[function(require,module,exports){

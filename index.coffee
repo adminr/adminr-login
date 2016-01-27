@@ -4,18 +4,18 @@ mod.config((AdminrContainerManagerProvider)->
   AdminrContainerManagerProvider.setViewForContainer('adminr-login-form','adminr-login-form')
 )
 
-mod.run(($templateCache)->
+mod.run(['$templateCache',($templateCache)->
   $templateCache.put('adminr-login',require('./views/index.html'))
   $templateCache.put('adminr-login-form',require('./views/form.html'))
   $templateCache.put('adminr-login-form',require('./views/form.html'))
-)
+])
 
 
-mod.provider('AdminrLogin',(AdminrContainerManagerProvider)->
+mod.provider('AdminrLogin',['AdminrContainerManagerProvider',(AdminrContainerManagerProvider)->
   class AdminrLogin
-    @EMAIL = 'email'
-    @TEXT = 'text'
-    usernameType: @EMAIL
+    @USERNAME_TYPE_EMAIL = 'email'
+    @USERNAME_TYPE_TEXT = 'text'
+    usernameType: @USERNAME_TYPE_EMAIL
 
     setAsRootContainerView:()->
       AdminrContainerManagerProvider.setViewForRootContainer('adminr-login')
@@ -27,10 +27,10 @@ mod.provider('AdminrLogin',(AdminrContainerManagerProvider)->
       return @
 
   return new AdminrLogin()
-)
+])
 
 
-mod.controller('AdminrLoginCtrl',($scope,AdminrDataSources,AdminrLogin)->
+mod.controller('AdminrLoginCtrl',['$scope','AdminrDataSources','AdminrLogin',($scope,AdminrDataSources,AdminrLogin)->
   $scope.dataSource = AdminrDataSources.getDataSource()
 
   $scope.usernameType = AdminrLogin.usernameType
@@ -51,5 +51,5 @@ mod.controller('AdminrLoginCtrl',($scope,AdminrDataSources,AdminrLogin)->
     if $scope.dataSource?.isAuthorized()
       return 'adminr-login-content'
     return 'adminr-login-form'
-)
+])
 
