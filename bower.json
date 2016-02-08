@@ -4,7 +4,10 @@
     "Jakub Knejzlik <jakub.knejzlik@gmail.com>"
   ],
   "description": "adminr login module",
-  "main": "dist/index.js",
+  "main": [
+    "dist/index.js",
+    "dist/styles.css"
+  ],
   "keywords": [
     "adminr",
     "administration",
@@ -18,10 +21,12 @@
     "node_modules",
     "bower_components",
     "test",
-    "tests"
+    "tests",
+    "example"
   ],
   "dependencies": {
     "adminr-datasources": "^0.1.12",
-    "bootstrap-css-only": "~3.3.5"
+    "bootstrap-css-only": "~3.3.5",
+    "adminr-core": "~0.0.8"
   }
 }
