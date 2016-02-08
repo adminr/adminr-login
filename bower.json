@@ -22,7 +22,7 @@
     "tests"
   ],
   "dependencies": {
-    "adminr-datasources": "~0.0.2",
+    "adminr-datasources": "^0.1.12",
     "bootstrap-css-only": "~3.3.5"
   }
 }
